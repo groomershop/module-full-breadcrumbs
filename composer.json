@@ -1,7 +1,7 @@
 {
     "name": "coresh/module-fullbreadcrumbs",
     "description": "Full breadcrumbs for product page",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "type": "magento2-module",
     "license": "proprietary",
     "authors": [
