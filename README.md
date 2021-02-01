@@ -13,6 +13,10 @@ You can also define the "bad categories" you do not want to display in product b
 - Magento 2.x
 - Composer
 
+```
+composer require coresh/module-fullbreadcrumbs
+```
+
 # Configuration:
 
 - To install the extension, use the composer, then go to Admin → Store → Configuration → Eadesign Settings → Full Breadcrumbs to activate it.
