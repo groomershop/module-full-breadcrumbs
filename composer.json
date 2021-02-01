@@ -37,6 +37,6 @@
         "lusitanian/oauth": "~0.8.10",
         "sebastian/phpcpd": "~3.0.0"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
