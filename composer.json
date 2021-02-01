@@ -1,5 +1,5 @@
 {
-    "name": "eadesigndev/module-fullbreadcrumbs",
+    "name": "coresh/module-fullbreadcrumbs",
     "description": "Full breadcrumbs for product page",
     "version": "1.0.4",
     "type": "magento2-module",
