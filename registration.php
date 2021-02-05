@@ -5,6 +5,6 @@
  */
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Eadesigndev_FullBreadcrumbs',
-    __DIR__
+    'Groomershop_FullBreadcrumbs',
+    isset($file) && realpath($file) == __FILE__ ? dirname($file) : __DIR__
 );

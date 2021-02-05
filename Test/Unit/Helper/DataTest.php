@@ -6,9 +6,9 @@
  * Time: 1:29 PM
  */
 
-namespace Eadesigndev\FullBreadcrumbs\Test\Unit\Helper;
+namespace Groomershop\FullBreadcrumbs\Test\Unit\Helper;
 
-use Eadesigndev\FullBreadcrumbs\Helper\Data;
+use Groomershop\FullBreadcrumbs\Helper\Data;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\Context;
@@ -58,7 +58,7 @@ class DataTest extends TestCase
             ->method('getValue')
             ->willReturn(true);
 
-        $this->assertTrue($this->subject->hasConfig('ea_fullbreadcrumbs/fullbreadcrumbs/enabled'));
+        $this->assertTrue($this->subject->hasConfig('groomershop_full_breadcrumbs/fullbreadcrumbs/enabled'));
     }
 
     public function testIsEnabled()

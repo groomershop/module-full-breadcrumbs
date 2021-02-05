@@ -3,7 +3,7 @@
  * Copyright © EAdesign by Eco Active S.R.L.,All rights reserved.
  * See LICENSE for license details.
  */
-namespace Eadesigndev\FullBreadcrumbs\Helper;
+namespace Groomershop\FullBreadcrumbs\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
@@ -11,7 +11,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
-    const ENABLED = 'ea_fullbreadcrumbs/fullbreadcrumbs/enabled';
+    const ENABLED = 'groomershop_full_breadcrumbs/fullbreadcrumbs/enabled';
 
     public $config;
 

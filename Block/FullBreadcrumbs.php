@@ -3,14 +3,14 @@
  * Copyright © EAdesign by Eco Active S.R.L.,All rights reserved.
  * See LICENSE for license details.
  */
-namespace Eadesigndev\FullBreadcrumbs\Block;
+namespace Groomershop\FullBreadcrumbs\Block;
 
 use Magento\Catalog\Helper\Data;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
 use Magento\Framework\Registry;
 use Magento\Framework\Api\AttributeValue;
-use Eadesigndev\FullBreadcrumbs\Helper\Data as BreadcrumbsData;
+use Groomershop\FullBreadcrumbs\Helper\Data as BreadcrumbsData;
 
 class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
 {
@@ -23,7 +23,7 @@ class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
     private $registry;
     private $categoryCollection;
     private $breadcrumbsData;
-    public $bad_categories;
+    public $excluded_categories_ids;
     public $enabled;
 
     /**
@@ -46,15 +46,15 @@ class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
 
-    public function getBadCategories()
+    public function getExcludedCategoriesIds()
     {
-        $bad_categories = $this->breadcrumbsData->hasConfig('ea_fullbreadcrumbs/fullbreadcrumbs/bad_categories');
-        return explode(',', str_replace(' ', '', $bad_categories));
+        $excluded_categories_ids = $this->breadcrumbsData->hasConfig('full_breadcrumbs/general/excluded_categories_ids');
+        return explode(',', str_replace(' ', '', $excluded_categories_ids));
     }
 
-    public function isEnable()
+    public function isEnabled()
     {
-        return $this->breadcrumbsData->hasConfig('ea_fullbreadcrumbs/fullbreadcrumbs/enabled');
+        return $this->breadcrumbsData->hasConfig('full_breadcrumbs/general/enabled');
     }
 
     public function getProduct()
@@ -98,14 +98,14 @@ class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
 
     public function getProductBreadcrumbs()
     {
-        if ($this->isEnable()) {
+        if ($this->isEnabled()) {
             $separator = ' <span class="breadcrumbsseparator"></span> ';
             $product = $this->getProduct();
             $categoryIds = $this->getCategoryProductIds($product);
 
             $filtered_colection = $this->getFilteredCollection($categoryIds);
 
-            $badCategories = $this->getBadCategories();
+            $badCategories = $this->getExcludedCategoriesIds();
 
             $categories = $this->getCategories($filtered_colection, $badCategories);
 

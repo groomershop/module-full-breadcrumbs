@@ -6,10 +6,10 @@
  * Time: 3:09 PM
  */
 
-namespace Eadesigndev\FullBreadcrumbs\Test\Unit\Block;
+namespace Groomershop\FullBreadcrumbs\Test\Unit\Block;
 
-use Eadesigndev\FullBreadcrumbs\Block\FullBreadcrumbs;
-use Eadesigndev\FullBreadcrumbs\Helper\Data;
+use Groomershop\FullBreadcrumbs\Block\FullBreadcrumbs;
+use Groomershop\FullBreadcrumbs\Helper\Data;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\Context;

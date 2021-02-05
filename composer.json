@@ -1,18 +1,25 @@
 {
-    "name": "coresh/module-fullbreadcrumbs",
-    "description": "Full breadcrumbs for product page",
-    "type": "magento2-module",
-    "version": "1.0.5",
-    "require": {
-        "eadesignro/module-eacore": ">=0.2.9"
+  "name": "groomershop/module-full-breadcrumbs",
+  "description": "Full breadcrumbs for product page",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mihai Ardeleanu",
+      "email": "mihai.ardeleanu@eadesign.ro"
     },
-    "license": "proprietary",
-    "authors": [
-        {
-            "name": "Mihai Ardeleanu",
-            "email": "mihai.ardeleanu@eadesign.ro"
-        }
+    {
+      "name": "Jacek Tomaszewski",
+      "email": "jacek@jtom.me"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
     ],
-    "minimum-stability": "dev"
+    "psr-4": {
+      "Groomershop\\FullBreadcrumbs\\": ""
+    }
+  }
 }
-
