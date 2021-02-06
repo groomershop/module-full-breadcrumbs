@@ -11,7 +11,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Data extends AbstractHelper
 {
-    const ENABLED = 'groomershop_full_breadcrumbs/fullbreadcrumbs/enabled';
+    const ENABLED = 'full_breadcrumbs/general/enabled';
 
     public $config;
 
@@ -38,8 +38,8 @@ class Data extends AbstractHelper
         );
     }
 
-    public function isEnabled($enablefullbreadcrumbs = self::ENABLED)
+    public function isEnabled()
     {
-        return $this->hasConfig($enablefullbreadcrumbs);
+        return $this->hasConfig(self::ENABLED);
     }
 }

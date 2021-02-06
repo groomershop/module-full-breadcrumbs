@@ -7,9 +7,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
-		<referenceBlock name="page.main.title">
-			<block as="fullbreadcrumbs" class="Groomershop\FullBreadcrumbs\Block\FullBreadcrumbs" name="fullbreadcrumbs" template="Groomershop_FullBreadcrumbs::fullbreadcrumbs.phtml"/>
-		</referenceBlock>
-		<move element="fullbreadcrumbs" destination="page.main.title" before="page.main.title" />
+		<block name="full_breadcrumbs" class="Groomershop\FullBreadcrumbs\Block\FullBreadcrumbs" template="Groomershop_FullBreadcrumbs::breadcrumbs.phtml" />
+		<move element="full_breadcrumbs" destination="breadcrumbs.container.inner"/>
+		<referenceBlock name="breadcrumbs" remove="true" />
 	</body>
 </page>

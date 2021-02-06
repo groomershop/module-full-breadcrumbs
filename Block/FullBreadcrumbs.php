@@ -46,71 +46,72 @@ class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
     }
 
-    public function getExcludedCategoriesIds()
+    private function getExcludedCategoriesIds()
     {
         $excluded_categories_ids = $this->breadcrumbsData->hasConfig('full_breadcrumbs/general/excluded_categories_ids');
         return explode(',', str_replace(' ', '', $excluded_categories_ids));
     }
 
-    public function isEnabled()
+    private function isEnabled()
     {
         return $this->breadcrumbsData->hasConfig('full_breadcrumbs/general/enabled');
     }
 
-    public function getProduct()
+    private function getCurrentProduct()
     {
         return $this->registry->registry('current_product');
     }
 
-    public function getCategoryProductIds($product)
+    private function getProductCategories()
     {
-        /** @var  $categoryIds  AttributeValue */
-        $categoryIds = $product->getCategoryIds();
-        return $categoryIds;
-    }
-
-    public function getFilteredCollection($categoryIds)
-    {
-        $collection = $this->categoryCollection->create();
-        $filtered_colection = $collection
-            ->addFieldToSelect('*')
-            ->addFieldToFilter(
-                'entity_id',
-                ['in' => $categoryIds]
-            )
-            ->setOrder('level', 'ASC')
-            ->load();
-        return $filtered_colection;
-    }
-
-    public function getCategories($filtered_colection, $badCategories)
-    {
-        $separator = ' <span class="breadcrumbsseparator"></span> ';
-        $categories = '';
-        foreach ($filtered_colection as $categoriesData) {
-            if (!in_array($categoriesData->getId(), $badCategories)) {
-                $categories .= '<a href="' . $categoriesData->getUrl() . '">';
-                $categories .= $categoriesData->getData('name') . '</a>' . $separator;
-            }
+        $productCategories = $this->getCurrentProduct()->getCategoryCollection();
+        if (count($productCategories) === 0) {
+            return [];
         }
-        return $categories;
+
+        $productCategory = current(iterator_to_array($productCategories));
+        $categories = $productCategory->getParentCategories();
+        $excludedCategoriesIds = $this->getExcludedCategoriesIds();
+        $filteredCategories = array_filter(
+            $categories,
+            function ($category) use($excludedCategoriesIds) {
+                return !in_array($category->getId(), $excludedCategoriesIds);
+            }
+        );
+        return $filteredCategories;
     }
 
     public function getProductBreadcrumbs()
     {
-        if ($this->isEnabled()) {
-            $separator = ' <span class="breadcrumbsseparator"></span> ';
-            $product = $this->getProduct();
-            $categoryIds = $this->getCategoryProductIds($product);
-
-            $filtered_colection = $this->getFilteredCollection($categoryIds);
-
-            $badCategories = $this->getExcludedCategoriesIds();
-
-            $categories = $this->getCategories($filtered_colection, $badCategories);
-
-            $home_url = '<a href="' . $this->_storeManager->getStore()->getBaseUrl() . '">Home</a>';
-            return $home_url . $separator . $categories . '<span>' . $product->getName() . '</span>';
+        if (!$this->isEnabled()) {
+            return [];
         }
+
+        $breadcrumbs = [];
+        $categories = $this->getProductCategories();
+
+        $breadcrumbs['home'] = [
+            'link' => $this->_storeManager->getStore()->getBaseUrl(),
+            'label' => __('Home'),
+            'title' => null,
+            'last' => false
+        ];
+        foreach ($categories as $category) {
+            $breadcrumbs[ 'category' . $category->getId() ] = [
+                'link' => $category->getUrl(),
+                'label' => $category->getData('name'),
+                'title' => null,
+                'last' => false
+            ];
+        }
+
+        $breadcrumbs['product'] = [
+            'link' => null,
+            'label' => $this->getCurrentProduct()->getName(),
+            'title' => null,
+            'last' => true
+        ];
+
+        return $breadcrumbs;
     }
 }
