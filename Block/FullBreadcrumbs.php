@@ -70,7 +70,17 @@ class FullBreadcrumbs extends \Magento\Framework\View\Element\Template
         }
 
         $productCategory = current(iterator_to_array($productCategories));
-        $categories = $productCategory->getParentCategories();
+        $resourceModel = $productCategory->getResource();
+        $pathIds = array_reverse(explode(',', (string)$productCategory->getPathInStore()));
+        $collection = $this->categoryCollection->create();
+        $categories = $collection
+            ->setStore($this->_storeManager->getStore())
+            ->addAttributeToSelect('name')
+            ->addAttributeToSelect('url_key')
+            ->addFieldToFilter('entity_id', ['in' => $pathIds])
+            ->addFieldToFilter('is_active', 1)
+            ->setOrder('level', 'ASC')
+            ->load()->getItems();
         $excludedCategoriesIds = $this->getExcludedCategoriesIds();
         $filteredCategories = array_filter(
             $categories,
